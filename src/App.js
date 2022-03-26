@@ -1,17 +1,35 @@
+import React from "react";
 import "./App.css";
+import "./common/common.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-function App() {
+// import { LocalGasStation } from "@mui/icons-material";
+//importing components
+import Navbar from "./common/Navbar";
+import Home from "./components/home/Home";
+import LogIn from "./pages/LogIn";
+import SignUp from "./pages/SignUp";
+import ProductDetail from "./pages/ProductDetail";
+import Shipping from "./pages/Shipping";
+import Orders from "./pages/Orders";
+
+const App = () => {
   return (
-    <div className="App">
-      <h1>This is upGrad E-shop</h1>
-      <h4>Checkpoint 1</h4>
-      <h4>Starter Code and Configuration Guidelines</h4>
-      <h5>
-        Successfully created react app (upGrad E-shop)and created folder
-        structure as per upGrad guidelines.
-      </h5>
-    </div>
+    <>
+      <Navbar></Navbar>
+      {/* <Home></Home> */}
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<LogIn />} />
+          <Route path="/productDetail" element={<ProductDetail />} />
+          <Route path="/shipping" element={<Shipping />} />
+          <Route path="/orders" element={<Orders />} />
+        </Routes>
+      </Router>
+    </>
   );
-}
+};
 
 export default App;
