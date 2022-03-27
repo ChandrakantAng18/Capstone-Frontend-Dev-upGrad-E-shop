@@ -1,11 +1,11 @@
 import React from "react";
-import "./App.css";
-import "./common/common.css";
+// import "./App.css";
+// import "./common/common.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 // import { LocalGasStation } from "@mui/icons-material";
 //importing components
-import Navbar from "./common/Navbar";
+// import Navbar from "./common/Navbar";
 import Home from "./components/home/Home";
 import LogIn from "./pages/LogIn";
 import SignUp from "./pages/SignUp";
@@ -16,7 +16,6 @@ import Orders from "./pages/Orders";
 const App = () => {
   return (
     <>
-      <Navbar></Navbar>
       {/* <Home></Home> */}
       <Router>
         <Routes>
