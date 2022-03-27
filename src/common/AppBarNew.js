@@ -121,7 +121,7 @@ export default function PrimarySearchAppBar() {
           </IconButton> */}
               <Typography className={classes.title} variant="h6" noWrap>
                 <ShoppingCartIcon />
-                ecommerce
+                upGrad E-Shop
               </Typography>
             </Grid>
             <Grid item xs={4}>
