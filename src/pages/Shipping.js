@@ -13,13 +13,15 @@ import Typography from "@material-ui/core/Typography";
 import AddressForm from "../components/placing-order/AddressForm";
 import PaymentForm from "../components/placing-order/PaymentForm";
 import Review from "../components/placing-order/Review";
+import PrimarySearchAppBar from "../common/AppBarNew";
+import Grid from "@mui/material/Grid";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="https://www.upgrad.com/">
+        upGrad
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -64,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ["Shipping address", "Payment details", "Review your order"];
+const steps = ["Items", "Select Address", "Confirm Orders"];
 
 function getStepContent(step) {
   switch (step) {
@@ -92,48 +94,53 @@ export default function Checkout() {
   };
 
   return (
-    <React.Fragment>
+    <>
       <CssBaseline />
-      <AppBar position="absolute" color="default" className={classes.appBar}>
+      <PrimarySearchAppBar></PrimarySearchAppBar>
+      <br />
+      {/* <AppBar position="absolute" color="default" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
             Company name
           </Typography>
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
       <main className={classes.layout}>
-        <Paper className={classes.paper}>
-          <Typography component="h1" variant="h4" align="center">
+        {/* <Paper className={classes.paper}> */}
+        {/* <Typography component="h1" variant="h4" align="center">
             Checkout
-          </Typography>
-          <Stepper activeStep={activeStep} className={classes.stepper}>
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-          <React.Fragment>
-            {activeStep === steps.length ? (
-              <React.Fragment>
-                <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
-                </Typography>
-                <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
-                  shipped.
-                </Typography>
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                {getStepContent(activeStep)}
+          </Typography> */}
+
+        <Stepper activeStep={activeStep} className={classes.stepper}>
+          {steps.map((label) => (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+        <>
+          {activeStep === steps.length ? (
+            <>
+              <Typography variant="h5" gutterBottom>
+                Thank you for your order.
+              </Typography>
+              <Typography variant="subtitle1">
+                Your order number is #2001539. We have emailed your order
+                confirmation, and will send you an update when your order has
+                shipped.
+              </Typography>
+            </>
+          ) : (
+            <>
+              {getStepContent(activeStep)}
+              <Grid container justifyContent="center" alignItems="center">
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} className={classes.button}>
                       Back
                     </Button>
                   )}
+                  <br />
                   <Button
                     variant="contained"
                     color="primary"
@@ -143,12 +150,15 @@ export default function Checkout() {
                     {activeStep === steps.length - 1 ? "Place order" : "Next"}
                   </Button>
                 </div>
-              </React.Fragment>
-            )}
-          </React.Fragment>
-        </Paper>
+              </Grid>
+            </>
+          )}
+        </>
+        {/* </Paper> */}
+        <br />
+        <br />
         <Copyright />
       </main>
-    </React.Fragment>
+    </>
   );
 }
