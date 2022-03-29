@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import axios from "axios";
 // import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
@@ -12,8 +13,11 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { register } from "../actions/userActions";
+import { useNavigate } from "react-router-dom";
 
-import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+
 function Copyright(props) {
   return (
     <Typography
@@ -35,7 +39,9 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
-  // handle state for registering user
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [registerUser, setRegisterUser] = React.useState({
     first_name: "",
     last_name: "",
@@ -46,6 +52,17 @@ export default function SignUp() {
     isAdmin: false,
   });
 
+  const userRegister = useSelector((state) => state.userRegister);
+  const { loading, error, userInfo } = userRegister;
+
+  // const redirect = location.search ? location.search.split("=")[1] : "/";
+
+  React.useEffect(() => {
+    if (userInfo) {
+      navigate("/");
+    }
+  }, [userInfo]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     // const requestOptions = {
@@ -53,9 +70,21 @@ export default function SignUp() {
     //   body: registerUser,
     // };
 
-    axios.post("http://localhost:8000/api/users", registerUser).then((res) => {
-      console.log(res);
-    });
+    // axios.post("http://localhost:8000/api/users", registerUser).then((res) => {
+    //   console.log(res);
+    // });
+
+    dispatch(
+      dispatch(
+        register(
+          registerUser.first_name,
+          registerUser.email,
+          registerUser.password,
+          registerUser.last_name,
+          registerUser.phone_number
+        )
+      )
+    );
 
     // console.log("res---------->>", response);
     // console.log("register:==>", registerUser);
@@ -182,6 +211,13 @@ export default function SignUp() {
           </Box>
         </Box>
         <Copyright sx={{ mt: 5 }} />
+        <Button
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          asdfasdf
+        </Button>
       </Container>
     </ThemeProvider>
   );
