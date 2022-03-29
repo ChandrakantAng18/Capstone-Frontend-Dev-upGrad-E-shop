@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,6 +12,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import axios from "axios";
 
 function Copyright(props) {
   return (
@@ -34,13 +35,36 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function LogIn() {
+  // const [login, setLogin] = React.useState({
+  //   email: "",
+  //   password: "",
+  // });
+
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = useState("");
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "email") {
+      setEmail(value);
+    } else {
+      setPassword(value);
+    }
+  };
+  console.log(email);
+  console.log(password);
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    const data = {
+      email: email,
+      password: password,
+    };
+    axios
+      .post("http://localhost:8000/api/users/login", data)
+      .then((res) => console.log("this is response", res))
+      .catch((err) => console.log("this is an error", err));
   };
 
   return (
@@ -68,6 +92,7 @@ export default function LogIn() {
             sx={{ mt: 1 }}
           >
             <TextField
+              onChange={handleChange}
               margin="normal"
               required
               fullWidth
@@ -78,6 +103,7 @@ export default function LogIn() {
               autoFocus
             />
             <TextField
+              onChange={handleChange}
               margin="normal"
               required
               fullWidth

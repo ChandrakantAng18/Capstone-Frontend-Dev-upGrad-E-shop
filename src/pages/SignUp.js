@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+import axios from "axios";
 function Copyright(props) {
   return (
     <Typography
@@ -34,15 +35,50 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
+  // handle state for registering user
+  const [registerUser, setRegisterUser] = React.useState({
+    first_name: "",
+    last_name: "",
+    phone_number: "",
+    email: "",
+    password: "",
+    confirm_password: "",
+    isAdmin: false,
+  });
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
+    // const requestOptions = {
+    //   headers: { "Content-Type": "application/json" },
+    //   body: registerUser,
+    // };
+
+    axios.post("http://localhost:8000/api/users", registerUser).then((res) => {
+      console.log(res);
     });
+
+    // console.log("res---------->>", response);
+    // console.log("register:==>", registerUser);
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    const clone = { ...registerUser };
+    if (name === "first_name") {
+      setRegisterUser({ ...clone, first_name: value });
+    } else if (name === "last_name") {
+      setRegisterUser({ ...clone, last_name: value });
+    } else if (name === "email") {
+      setRegisterUser({ ...clone, email: value });
+    } else if (name === "password") {
+      setRegisterUser({ ...clone, password: value });
+    } else if (name === "confirm_password") {
+      setRegisterUser({ ...clone, confirm_password: value });
+    } else if (name === "phone_number") {
+      setRegisterUser({ ...clone, phone_number: value });
+    }
+  };
+  // console.log("registerUser", registerUser);
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -70,39 +106,38 @@ export default function SignUp() {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
+                  onChange={handleChange}
                   autoComplete="given-name"
-                  name="firstName"
-                  required
+                  name="first_name"
+                  value={registerUser.first_name}
                   fullWidth
-                  id="firstName"
                   label="First Name"
                   autoFocus
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
+                  onChange={handleChange}
                   fullWidth
-                  id="lastName"
                   label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
+                  value={registerUser.last_name}
+                  name="last_name"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
+                  onChange={handleChange}
                   fullWidth
-                  id="email"
+                  value={registerUser.email}
                   label="Email Address"
                   name="email"
-                  autoComplete="email"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
+                  onChange={handleChange}
                   fullWidth
+                  value={registerUser.password}
                   name="password"
                   label="Password"
                   type="password"
@@ -110,30 +145,24 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
+                  onChange={handleChange}
                   fullWidth
-                  name="Confirm Password"
+                  value={registerUser.confirm_password}
+                  name="confirm_password"
                   label="Confirm Password"
                   type="password"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
+                  onChange={handleChange}
                   fullWidth
-                  name="Contact Number"
+                  value={registerUser.phone_number}
+                  name="phone_number"
                   label="Contact Number"
                   type="String"
                 />
               </Grid>
-              {/* <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid> */}
             </Grid>
             <Button
               type="submit"
