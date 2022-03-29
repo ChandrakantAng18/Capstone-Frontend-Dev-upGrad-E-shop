@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { alpha, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -17,6 +17,8 @@ import MoreIcon from "@material-ui/icons/MoreVert";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { Grid } from "@material-ui/core";
 import CommonButton from "../common/CommonButton";
+import { useNavigate } from "react-router-dom";
+
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -85,9 +87,14 @@ export default function PrimarySearchAppBar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const navigate = useNavigate();
+  const [logButton, setLogButton] = useState("LOGIN");
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const log_button = "LOGIN";
+  const log_button_text = "LOGIN";
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -109,7 +116,7 @@ export default function PrimarySearchAppBar() {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <Grid container spacing={1}>
+          <Grid container spacing={0}>
             <Grid item xs={4}>
               {/* <IconButton
             edge="start"
@@ -130,6 +137,9 @@ export default function PrimarySearchAppBar() {
                   <SearchIcon />
                 </div>
                 <InputBase
+                  onChange={() => {
+                    console.log("search typed");
+                  }}
                   placeholder="Search…"
                   classes={{
                     root: classes.inputRoot,
@@ -150,10 +160,14 @@ export default function PrimarySearchAppBar() {
                     </Grid>
                     <Grid item xs={6}>
                       <CommonButton
+                        onClick={() => {
+                          console.log("login clicked");
+                          navigate("/login");
+                        }}
                         variant="contained"
                         color="secondary"
-                        button_name="LOGOUT"
-                        text="LOGOUT"
+                        button_name={log_button}
+                        text={log_button_text}
                       />
                     </Grid>
                   </Grid>

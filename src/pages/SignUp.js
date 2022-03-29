@@ -216,7 +216,7 @@ export default function SignUp() {
             navigate("/");
           }}
         >
-          asdfasdf
+          HOME
         </Button>
       </Container>
     </ThemeProvider>

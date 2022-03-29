@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -42,6 +43,7 @@ export default function LogIn() {
 
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -63,7 +65,14 @@ export default function LogIn() {
     };
     axios
       .post("http://localhost:8000/api/users/login", data)
-      .then((res) => console.log("this is response", res))
+      .then((res) => {
+        console.log("this is response", res);
+        if (res.status === 200) {
+          navigate("/");
+        } else {
+          res.send("<h1>Enter valid credential</h1>");
+        }
+      })
       .catch((err) => console.log("this is an error", err));
   };
 
