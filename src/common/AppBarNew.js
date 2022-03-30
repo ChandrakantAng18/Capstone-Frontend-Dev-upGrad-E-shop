@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar({ setSearchField }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -112,6 +112,10 @@ export default function PrimarySearchAppBar() {
 
   const mobileMenuId = "primary-search-account-menu-mobile";
 
+  const handleChange = (e) => {
+    setSearchField(e.target.value)  ;
+  };
+  // console.log("this is a search field", searchField);
   return (
     <div className={classes.grow}>
       <AppBar position="static">
@@ -137,9 +141,7 @@ export default function PrimarySearchAppBar() {
                   <SearchIcon />
                 </div>
                 <InputBase
-                  onChange={() => {
-                    console.log("search typed");
-                  }}
+                  onChange={handleChange}
                   placeholder="Search…"
                   classes={{
                     root: classes.inputRoot,

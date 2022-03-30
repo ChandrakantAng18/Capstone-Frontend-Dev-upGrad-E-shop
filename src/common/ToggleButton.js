@@ -17,19 +17,49 @@ export default function ToggleButtons() {
       onChange={handleAlignment}
       aria-label="text alignment"
     >
-      <ToggleButton value="left" aria-label="left aligned">
+      <ToggleButton
+        onClick={() => {
+          console.log("clicked");
+        }}
+        value="left"
+        aria-label="left aligned"
+      >
         ALL
       </ToggleButton>
-      <ToggleButton value="left" aria-label="left aligned">
+      <ToggleButton
+        onClick={() => {
+          console.log("clicked");
+        }}
+        value="left"
+        aria-label="left aligned"
+      >
         APPAREL
       </ToggleButton>
-      <ToggleButton value="left" aria-label="left aligned">
+      <ToggleButton
+        onClick={() => {
+          console.log("clicked");
+        }}
+        value="left"
+        aria-label="left aligned"
+      >
         ELECTRONICS
       </ToggleButton>
-      <ToggleButton value="left" aria-label="left aligned">
+      <ToggleButton
+        onClick={() => {
+          console.log("clicked");
+        }}
+        value="left"
+        aria-label="left aligned"
+      >
         FOOTWEAR
       </ToggleButton>
-      <ToggleButton value="left" aria-label="left aligned">
+      <ToggleButton
+        onClick={() => {
+          console.log("clicked");
+        }}
+        value="left"
+        aria-label="left aligned"
+      >
         PERSONAL CARE
       </ToggleButton>
     </ToggleButtonGroup>

@@ -24,9 +24,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Home = () => {
-  const classes = useStyles();
+  const [searchField, setSearchField] = useState("");
 
+  const classes = useStyles();
   const [productData, setProductData] = useState([]);
+
+  const [filteredProducts, setFilteredProducts] = useState(productData);
 
   useEffect(() => {
     axios
@@ -35,8 +38,15 @@ const Home = () => {
       .catch((err) => console.log("error:", err));
   }, []);
   console.log("data--", productData);
+  useEffect(() => {
+    const filteredProductData = productData.filter((product) => {
+      return product.name.toLowerCase().includes(searchField);
+    });
+    setFilteredProducts(filteredProductData);
+  }, [productData, searchField]);
+
   const renderProduct = () => {
-    return productData.map((product) => {
+    return filteredProducts.map((product) => {
       return (
         <>
           <Grid item xs={4}>
@@ -59,15 +69,19 @@ const Home = () => {
     });
   };
 
+  console.log("this is my searchField", searchField);
   return (
     <>
       <Grid container spacing={0}>
         <Grid item xs={12}>
-          <PrimarySearchAppBar></PrimarySearchAppBar>
+          <PrimarySearchAppBar
+            setSearchField={setSearchField}
+            productData={productData}
+          ></PrimarySearchAppBar>
           <br />
         </Grid>
         <Grid container justifyContent="center" alignItems="center">
-          <ToggleButtons />
+          <ToggleButtons setFilteredProducts={setFilteredProducts} />
         </Grid>
 
         <Grid container spacing={6}>
