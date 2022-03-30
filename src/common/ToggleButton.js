@@ -3,7 +3,7 @@ import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 
 import React from "react";
 
-export default function ToggleButtons() {
+export default function ToggleButtons({ setProductCategory }) {
   const [alignment, setAlignment] = React.useState("left");
 
   const handleAlignment = (event, newAlignment) => {
@@ -19,7 +19,7 @@ export default function ToggleButtons() {
     >
       <ToggleButton
         onClick={() => {
-          console.log("clicked");
+          setProductCategory("All");
         }}
         value="left"
         aria-label="left aligned"
@@ -28,7 +28,7 @@ export default function ToggleButtons() {
       </ToggleButton>
       <ToggleButton
         onClick={() => {
-          console.log("clicked");
+          setProductCategory("Apparel");
         }}
         value="left"
         aria-label="left aligned"
@@ -37,7 +37,7 @@ export default function ToggleButtons() {
       </ToggleButton>
       <ToggleButton
         onClick={() => {
-          console.log("clicked");
+          setProductCategory("Electronics");
         }}
         value="left"
         aria-label="left aligned"
@@ -46,7 +46,7 @@ export default function ToggleButtons() {
       </ToggleButton>
       <ToggleButton
         onClick={() => {
-          console.log("clicked");
+          setProductCategory("Footwear");
         }}
         value="left"
         aria-label="left aligned"
@@ -55,7 +55,7 @@ export default function ToggleButtons() {
       </ToggleButton>
       <ToggleButton
         onClick={() => {
-          console.log("clicked");
+          setProductCategory("PersonalCare");
         }}
         value="left"
         aria-label="left aligned"

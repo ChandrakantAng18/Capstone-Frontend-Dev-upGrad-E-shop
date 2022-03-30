@@ -12,6 +12,8 @@ import ToggleButtons from "../../common/ToggleButton";
 import ComboBox from "../../common/AutoComplete";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
+import { useNavigate } from "react-router-dom";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -24,11 +26,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Home = () => {
+  const navigate = useNavigate();
   const [searchField, setSearchField] = useState("");
 
   const classes = useStyles();
   const [productData, setProductData] = useState([]);
-
+  const [productCategory, setProductCategory] = useState("");
+  console.log(productCategory);
   const [filteredProducts, setFilteredProducts] = useState(productData);
 
   useEffect(() => {
@@ -37,6 +41,15 @@ const Home = () => {
       .then((res) => setProductData(res.data.products))
       .catch((err) => console.log("error:", err));
   }, []);
+
+  useEffect(() => {
+    axios
+      .post("http://localhost:8000/api/products/categories", {
+        category: productCategory,
+      })
+      .then((res) => setFilteredProducts(res.data.data))
+      .catch((err) => console.log("error:", err));
+  }, [productCategory]);
   console.log("data--", productData);
   useEffect(() => {
     const filteredProductData = productData.filter((product) => {
@@ -54,6 +67,9 @@ const Home = () => {
               <Grid item xs={3}></Grid>
               <Grid item xs={6}>
                 <MediaCard
+                  handleClick={() => {
+                    navigate(`productdetail/${product._id}`);
+                  }}
                   image={product.imageURL}
                   product_name={product.name}
                   price={product.price}
@@ -76,12 +92,11 @@ const Home = () => {
         <Grid item xs={12}>
           <PrimarySearchAppBar
             setSearchField={setSearchField}
-            productData={productData}
           ></PrimarySearchAppBar>
           <br />
         </Grid>
         <Grid container justifyContent="center" alignItems="center">
-          <ToggleButtons setFilteredProducts={setFilteredProducts} />
+          <ToggleButtons setProductCategory={setProductCategory} />
         </Grid>
 
         <Grid container spacing={6}>

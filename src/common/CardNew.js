@@ -24,6 +24,7 @@ export default function MediaCard({
   price,
   description,
   buy,
+  handleClick,
 }) {
   const classes = useStyles();
 
@@ -31,6 +32,7 @@ export default function MediaCard({
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
+          onClick={handleClick}
           className={classes.media}
           image={image}
           title="Contemplative Reptile"
