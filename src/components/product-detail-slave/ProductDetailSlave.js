@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 
-const ProductDetailSlave = () => {
+const ProductDetailSlave = ({ productById }) => {
+  console.log("00--00-0-0-", productById);
+  console.log("render");
+  // useEffect(() => {
+  //   const data = setData(productById);
+  // }, [data]);
+
   return (
     <>
       <Grid container spacing={3}>
         <Grid container spacing={10}>
           <Grid item xs={5}>
             <div className="left-main">
-              <img
-                src="https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                alt="product_image"
-              />
+              {/* <img src={productById.imageURL} alt="product_image" /> */}
             </div>
           </Grid>
           <Grid item xs={7}>
